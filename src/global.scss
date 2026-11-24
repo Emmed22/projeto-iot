@@ -1,37 +1,61 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
 
-/* Core CSS required for Ionic components to work properly */
+/* Estilos essenciais do Ionic */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Fontes do protótipo Figma */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Identidade visual */
+:root {
+  --ink: #18211d;
+  --muted: #6f7b75;
+  --line: #e4e9e6;
+  --surface: #ffffff;
+  --canvas: #f4f7f5;
+  --green: #1f7652;
+  --green-dark: #16583e;
+  --green-soft: #e5f3eb;
+  --lime: #c9f45a;
+  --orange: #e56a3d;
+
+  --ion-font-family: "DM Sans", sans-serif;
+}
+
+/* Estilos gerais */
+html,
+body {
+  min-height: 100%;
+  background: var(--canvas);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+strong,
+button {
+  font-family: "Manrope", sans-serif;
+}
+
+button,
+input,
+textarea {
+  outline: none;
+}
+ion-router-outlet {
+  margin-bottom: 64px;
+}

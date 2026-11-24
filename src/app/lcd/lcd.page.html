@@ -1,0 +1,100 @@
+
+<ion-content [fullscreen]="true" class="app-content">
+  <main class="app-shell">
+
+    <header class="topbar">
+      <div class="brand-mark">
+        <ion-icon name="hardware-chip-outline"></ion-icon>
+      </div>
+
+      <div class="brand-copy">
+        <span>IOT CONTROL</span>
+        <strong>ESP32 Monitor</strong>
+      </div>
+
+      <div class="connection-pill" [class.connected] = "mqttService.isConnected()">
+        <span class="status-dot"></span>
+        {{ mqttService.isConnected() ? 'Conectado' : 'Desconectado' }}
+      </div>
+    </header>
+
+    <section class="screen">
+      <div class="page-stack">
+
+        <div class="page-heading">
+          <span>MENSAGEM REMOTA</span>
+          <h1>Escrever no LCD</h1>
+          <p>
+            Envie uma identificação e uma mensagem para o display do ESP32.
+          </p>
+        </div>
+
+        <!-- Pré-visualização do LCD -->
+        <div class="lcd-preview">
+
+          <div class="lcd-screws">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+
+          <div class="lcd-screen">
+            <span>{{ name.trim() || 'SEU NOME' }}</span>
+
+            <strong>
+              {{ message.trim() || 'SUA MENSAGEM AQUI' }}
+            </strong>
+          </div>
+
+          <small>LCD 16×2 • PRÉ-VISUALIZAÇÃO</small>
+        </div>
+
+        <!-- Formulário -->
+        <form class="form-card" (ngSubmit)="enviarMensagem()">
+
+          <label>
+            <span>Seu nome</span>
+
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="name"
+              maxlength="15"
+              placeholder="Ex.: Maria"
+              required
+            />
+
+            <small>{{ name.length }}/15 caracteres</small>
+          </label>
+
+          <label>
+            <span>Mensagem</span>
+
+            <textarea
+              name="message"
+              [(ngModel)]="message"
+              maxlength="16"
+              rows="3"
+              placeholder="Digite sua mensagem..."
+              required
+            ></textarea>
+
+            <small>{{ message.length }}/16 caracteres</small>
+          </label>
+
+          <button class="primary-button" type="submit">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+            Enviar para o LCD
+          </button>
+
+          @if (feedback) { <p class="feedback">
+            {{ feedback }}
+          </p>
+        }
+        </form>
+
+      </div>
+    </section>
+  </main>
+</ion-content>

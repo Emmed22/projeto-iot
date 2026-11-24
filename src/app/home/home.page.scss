@@ -1,27 +1,402 @@
-#container {
-  text-align: center;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.app-content {
+  --background: var(--canvas);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.app-shell {
+  width: 100%;
+  max-width: 760px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  background:
+    radial-gradient(
+      circle at 10% 5%,
+      rgba(229, 243, 235, 0.8),
+      transparent 35%
+    ),
+    var(--canvas);
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
 
-  color: #8c8c8c;
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: white;
+  background: var(--green);
+}
 
+.brand-mark ion-icon {
+  font-size: 25px;
+}
+
+.brand-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-copy span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.brand-copy strong {
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+}
+
+.connection-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--muted);
+  background: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.connection-pill span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e56a3d;
+}
+
+.screen {
+  padding: 30px 22px;
+  animation: reveal 0.4s ease;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 26px;
+}
+
+.welcome p {
+  margin: 0 0 8px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.welcome h1 {
   margin: 0;
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(20px, 5vw, 27px);
+  font-weight: 800;
 }
 
-#container a {
-  text-decoration: none;
+.device-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+}
+
+.device-status ion-icon {
+  color: var(--orange);
+  font-size: 22px;
+}
+
+.device-status div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.device-status span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.device-status strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.sensor-card {
+  min-height: 205px;
+  padding: 19px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(24, 33, 29, 0.04);
+}
+
+.temperature-card {
+  color: white;
+  background: linear-gradient(145deg, #236c4d, #164832);
+}
+
+.humidity-card {
+  color: var(--ink);
+  background: linear-gradient(145deg, #e5f3eb, #d2eadd);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.card-icon ion-icon {
+  font-size: 23px;
+}
+
+.humidity-card .card-icon {
+  background: rgba(31, 118, 82, 0.1);
+  color: var(--green);
+}
+
+.sensor-label {
+  margin-top: 17px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  opacity: 0.75;
+}
+
+.sensor-value {
+  margin-top: 3px;
+  font-family: "Manrope", sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sensor-value small {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.sensor-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+.mini-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.humidity-card .mini-dot {
+  background: var(--green);
+}
+
+.led-card {
+  display: grid;
+  grid-template-columns: 65px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 8px 25px rgba(24, 33, 29, 0.04);
+}
+
+.led-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 19px;
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.led-visual ion-icon {
+  z-index: 1;
+  font-size: 34px;
+}
+
+.led-info > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.led-info h2 {
+  margin: 5px 0;
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.led-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.led-info p strong {
+  color: var(--ink);
+}
+
+.led-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.led-button {
+  min-width: 66px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  color: var(--muted);
+  background: #f8faf9;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.led-button.on {
+  color: white;
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.led-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.connect-callout {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px dashed #b7c9bf;
+  border-radius: 18px;
+  color: var(--green-dark);
+  background: rgba(229, 243, 235, 0.55);
+  text-align: left;
+}
+
+.connect-callout > ion-icon {
+  font-size: 24px;
+}
+
+.connect-callout div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.connect-callout strong {
+  font-size: 13px;
+}
+
+.connect-callout div span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.connect-callout .arrow {
+  color: var(--green);
+  font-size: 20px;
+}
+
+@media (max-width: 560px) {
+  .screen {
+    padding: 25px 17px;
+  }
+
+  .led-card {
+    grid-template-columns: 55px 1fr;
+  }
+
+  .led-visual {
+    width: 53px;
+    height: 53px;
+  }
+
+  .led-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 365px) {
+  .connection-pill {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .sensor-card {
+    padding: 14px;
+  }
+
+  .sensor-value {
+    font-size: 32px;
+  }
 }

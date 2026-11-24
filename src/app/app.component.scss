@@ -1,0 +1,45 @@
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 720px;
+  height: 64px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 7px 12px;
+  background: #ffffff;
+  border-top: 1px solid #e4e9e6;
+  z-index: 1000;
+}
+
+.bottom-nav a {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #7b8580;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bottom-nav ion-icon {
+  font-size: 20px;
+}
+
+.bottom-nav a.active {
+  background: #e5f3eb;
+  color: #1f7652;
+  font-weight: 700;
+}

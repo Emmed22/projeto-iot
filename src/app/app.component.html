@@ -1,3 +1,20 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+
+  <nav class="bottom-nav">
+    <a routerLink="/home" routerLinkActive="active">
+      <ion-icon name="home-outline"></ion-icon>
+      <span>Início</span>
+    </a>
+
+    <a routerLink="/lcd" routerLinkActive="active">
+      <ion-icon name="chatbubble-outline"></ion-icon>
+      <span>LCD</span>
+    </a>
+
+    <a routerLink="/connection" routerLinkActive="active">
+      <ion-icon name="settings-outline"></ion-icon>
+      <span>Conexão</span>
+    </a>
+  </nav>
 </ion-app>

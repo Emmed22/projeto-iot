@@ -1,0 +1,327 @@
+
+.app-content {
+  --background: var(--canvas);
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 760px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  background: var(--canvas);
+}
+
+/* Cabeçalho */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: white;
+  background: var(--green);
+}
+
+.brand-mark ion-icon {
+  font-size: 25px;
+}
+
+.brand-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-copy span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.brand-copy strong {
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+}
+
+.connection-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--muted);
+  background: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.connection-pill span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* Conteúdo */
+
+.screen {
+  padding: 30px 22px;
+  animation: reveal 0.4s ease;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-heading > span {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.page-heading h1 {
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.page-heading p {
+  max-width: 470px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+/* Display LCD */
+
+.lcd-preview {
+  position: relative;
+  padding: 23px;
+  border-radius: 24px;
+  color: white;
+  background: #234c44;
+  box-shadow: 0 18px 35px rgba(23, 65, 54, 0.18);
+}
+
+.lcd-screen {
+  display: flex;
+  min-height: 102px;
+  justify-content: center;
+  flex-direction: column;
+  padding: 18px 22px;
+  border: 5px solid #163a33;
+  border-radius: 9px;
+  color: #293016;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 7px,
+      rgba(48, 61, 20, 0.04) 7px 8px
+    ),
+    #c9e97e;
+  box-shadow: inset 0 2px 9px rgba(41, 57, 20, 0.36);
+  font-family: monospace;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.lcd-screen span {
+  overflow: hidden;
+  font-size: 0.78rem;
+  opacity: 0.7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lcd-screen strong {
+  overflow: hidden;
+  font-family: monospace;
+  font-size: clamp(1rem, 4vw, 1.35rem);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lcd-preview > small {
+  display: block;
+  margin-top: 13px;
+  font-size: 0.59rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-align: center;
+  opacity: 0.65;
+}
+
+.lcd-screws {
+  position: absolute;
+  inset: 9px;
+  pointer-events: none;
+}
+
+.lcd-screws i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #718c83;
+}
+
+.lcd-screws i:nth-child(2) {
+  right: 0;
+}
+
+.lcd-screws i:nth-child(3) {
+  bottom: 0;
+}
+
+.lcd-screws i:nth-child(4) {
+  right: 0;
+  bottom: 0;
+}
+
+/* Formulário */
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 12px 32px rgba(29, 49, 40, 0.05);
+}
+
+.form-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-card label > span {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.form-card input,
+.form-card textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: #f8faf9;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  resize: none;
+  transition: 160ms ease;
+}
+
+.form-card input:focus,
+.form-card textarea:focus {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(31, 118, 82, 0.09);
+  outline: none;
+}
+
+.form-card label small {
+  color: var(--muted);
+  font-size: 0.67rem;
+  text-align: right;
+}
+
+.primary-button {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 13px;
+  color: white;
+  background: var(--green);
+  box-shadow: 0 8px 18px rgba(31, 118, 82, 0.19);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: 180ms ease;
+}
+
+.primary-button:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.primary-button ion-icon {
+  font-size: 18px;
+}
+
+.feedback {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .screen {
+    padding: 25px 17px;
+  }
+}
+.form-card {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.form-card input,
+.form-card textarea {
+  display: block;
+  position: relative;
+  width: 100%;
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+}

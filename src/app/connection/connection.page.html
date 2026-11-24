@@ -1,0 +1,130 @@
+
+<ion-content class="app-content">
+  <div class="app-shell">
+
+    <!-- Cabeçalho -->
+    <header class="topbar">
+      <div class="brand-mark">
+        <ion-icon name="hardware-chip-outline"></ion-icon>
+      </div>
+
+      <div class="brand-copy">
+        <strong>IoT Connect</strong>
+        <span>ESP32 Dashboard</span>
+      </div>
+
+      <div class="connection-pill" [class.connected]="mqttService.isConnected()">
+        <span class="status-dot"></span>
+        {{ mqttService.statusText() }}
+      </div>
+    </header>
+
+    <main class="screen">
+
+      <!-- Título da página -->
+      <section class="page-heading">
+        <span class="eyebrow">CONFIGURAÇÕES</span>
+        <h1>Conexão</h1>
+        <p>Configure a comunicação com seu dispositivo ESP32.</p>
+      </section>
+
+      <!-- Resumo da conexão -->
+      <section class="connection-summary">
+       
+        <div class="summary-icon">
+          <ion-icon name="wifi-outline"></ion-icon>
+        </div>
+
+        <div>
+          <strong>Status da conexão</strong>
+          <p>{{ mqttService.statusMessage() }}</p>
+        </div>
+      </section>
+
+      <!-- Configurações do servidor -->
+      <section class="page-stack">
+        <div class="form-card">
+
+          <div class="card-heading">
+            <div>
+              <h2>Servidor MQTT</h2>
+              <p>Dados de acesso ao broker</p>
+            </div>
+            <ion-icon name="server-outline"></ion-icon>
+          </div>
+
+          <div class="field-row">
+            <div class="server-field">
+              <label for="server">Endereço do servidor</label>
+              <input
+                id="server"
+                name ="server"
+                type="text"
+                [(ngModel)]="mqttService.server"
+                placeholder="Endereço do broker MQTT"
+              />
+            </div>
+
+            <div class="port-field">
+              <label for="port">Porta</label>
+              <input
+                id="port"
+                name="port"
+                type="number"
+                [(ngModel)]="mqttService.port"
+                placeholder="8884"
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="username">Usuário</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              [(ngModel)]="mqttService.username"
+              placeholder="Usuário MQTT"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="password">Senha</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              [(ngModel)]="mqttService.password"
+              placeholder="Senha MQTT"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="topic">Prefixo dos tópicos</label>
+            <input
+              id="topic"
+              name="topic"
+              type="text"
+              [(ngModel)]="mqttService.topicPrefix"
+              placeholder="iotaula/seu-nome/"
+            />
+            <span class="topic-note">
+              Prefixo utilizado para comunicação com o ESP32.
+            </span>
+          </div>
+
+          <button class="primary-button" type="button" (click)="conectar()" [disabled]="mqttService.isConnected() || mqttService.isConnecting()">
+            <ion-icon name="wifi-outline"></ion-icon>
+            Conectar ao servidor
+          </button>
+
+          <button class="secondary-button danger" type="button" (click)="desconectar()" [disabled]="!mqttService.isConnected()">
+            Desconectar
+          </button>
+          <p *ngIf="mqttService.errorMessage()" class="error-message"> {{ mqttService.errorMessage() }}</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</ion-content>
