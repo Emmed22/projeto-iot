@@ -14,7 +14,7 @@ Aplicativo desenvolvido como projeto acadêmico de IoT para monitoramento e cont
 ## Funcionalidades
 
 - **Conexão MQTT:** configuração do servidor, porta, usuário e senha, com indicadores de conexão.
-- **Monitoramento:** exibição de temperatura (°C) e umidade (%).
+- **Monitoramento:** exibição de temperatura (°C) e umidade (%), atualizadas automaticamente, com a hora da última leitura.
 - **Controle do LED:** envio de comandos para ligar e desligar o LED e recebimento do estado informado pelo ESP32.
 - **Display LCD:** envio de nome e mensagem para o display do dispositivo.
 - **Status do dispositivo:** indicação de disponibilidade do ESP32.
@@ -26,6 +26,7 @@ A comunicação utiliza conexão segura via WebSocket TLS.
 
 - **Broker:** HiveMQ Cloud
 - **Porta:** 8884
+- **Client ID:** `app-mariana-luna-xxxx` (nome das integrantes + sufixo aleatório, único a cada conexão)
 - **Caminho WebSocket:** `/mqtt`
 - **Protocolo:** MQTT 3.1.1
 

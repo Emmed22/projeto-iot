@@ -1,6 +1,8 @@
 
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { addIcons } from 'ionicons';
+
 
 import {
   IonHeader,
@@ -51,7 +53,8 @@ import { MqttService } from '../services/mqtt.service';
     IonCardTitle,
     IonButton,
     IonItem,
-    IonInput
+    IonInput,
+    DatePipe
   ],
 })
 export class HomePage {

@@ -54,6 +54,8 @@
             <small>°C</small>
           </div>
 
+          <p>Última leitura: {{ mqttService.lastReading() | date:'HH:mm:ss' }}</p>
+
           <div class="sensor-meta">
             <span class="mini-dot"></span>
             {{ mqttService.humidity() !== null ? 'Última leitura recebida' : ' Aguardando leitura'}}

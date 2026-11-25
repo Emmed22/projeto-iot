@@ -21,6 +21,7 @@ export class MqttService {
   temperature = signal<number | null>(null);
   humidity = signal<number | null>(null);
   deviceStatus = signal('offline');
+  lastReading = signal<Date | null>(null);
 
   // Configurações
   server = '436ce1fa7ecd416c98446bce794c0d8d.s1.eu.hivemq.cloud';
@@ -50,8 +51,8 @@ export class MqttService {
     const brokerUrl =
       `wss://${this.server}:${this.port}/mqtt`;
 
-    const clientId =
-      `iot-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+      const clientId =
+  `app-mariana-luna-${Math.random().toString(16).slice(2, 6)}`;
 
     this.errorMessage.set('');
     this.isConnecting.set(true);
@@ -126,6 +127,7 @@ export class MqttService {
 
             this.temperature.set(data.t);
             this.humidity.set(data.h);
+            this.lastReading.set(new Date());
 
           } catch (error) {
 
