@@ -30,6 +30,41 @@ export class MqttService {
   password = '';
   topicPrefix = 'iotaula/mariana-duarte-e-luna-alves/';
 
+  // Detecção de ESP32 offline (watchdog)
+  // Se ficar esse tempo sem receber nada do ESP32, ele é marcado como offline.
+  // Ajuste para ~3x o intervalo de envio da temperatura.
+  private readonly TIMEOUT_ESP32_MS = 15000;
+  private ultimoSinalEsp32 = 0;
+  private watchdog: ReturnType<typeof setInterval> | null = null;
+
+  private registrarSinalEsp32() {
+    this.ultimoSinalEsp32 = Date.now();
+    this.deviceStatus.set('online');
+  }
+
+  private iniciarWatchdog() {
+    this.pararWatchdog();
+
+    this.watchdog = setInterval(() => {
+      const semSinalHa = Date.now() - this.ultimoSinalEsp32;
+
+      if (
+        this.deviceStatus() === 'online' &&
+        semSinalHa > this.TIMEOUT_ESP32_MS
+      ) {
+        console.warn('[MQTT] ESP32 sem sinal, marcando como offline');
+        this.deviceStatus.set('offline');
+      }
+    }, 2000);
+  }
+
+  private pararWatchdog() {
+    if (this.watchdog) {
+      clearInterval(this.watchdog);
+      this.watchdog = null;
+    }
+  }
+
   conectar() {
 
     if (this.client) {
@@ -85,6 +120,11 @@ export class MqttService {
         this.statusMessage.set('Conexão estabelecida com sucesso!');
         this.errorMessage.set('');
 
+        // Começa assumindo offline até chegar algum sinal do ESP32
+        this.deviceStatus.set('offline');
+        this.ultimoSinalEsp32 = 0;
+        this.iniciarWatchdog();
+
         const topics = [
           `${this.topicPrefix}led/state`,
           `${this.topicPrefix}temp`,
@@ -113,10 +153,19 @@ export class MqttService {
 
         if (topic === `${this.topicPrefix}led/state`) {
           this.ledState.set(message);
+          this.registrarSinalEsp32();
         }
 
         if (topic === `${this.topicPrefix}status`) {
-          this.deviceStatus.set(message);
+          if (message === 'offline') {
+            // Ex.: Last Will publicado pelo broker quando o ESP32 cai
+            this.deviceStatus.set('offline');
+            this.ultimoSinalEsp32 = 0;
+          } else {
+            // 'online' conta como sinal; se for uma mensagem retida antiga
+            // e nada mais chegar, o watchdog derruba depois do timeout
+            this.registrarSinalEsp32();
+          }
         }
 
         if (topic === `${this.topicPrefix}temp`) {
@@ -128,6 +177,7 @@ export class MqttService {
             this.temperature.set(data.t);
             this.humidity.set(data.h);
             this.lastReading.set(new Date());
+            this.registrarSinalEsp32();
 
           } catch (error) {
 
@@ -157,6 +207,8 @@ export class MqttService {
       // Cliente offline
       client.on('offline', () => {
 
+        this.pararWatchdog();
+        this.deviceStatus.set('offline');
         this.isConnected.set(false);
         this.isConnecting.set(false);
         this.statusText.set('Offline');
@@ -169,6 +221,8 @@ export class MqttService {
       // Conexão encerrada
       client.on('close', () => {
 
+        this.pararWatchdog();
+        this.deviceStatus.set('offline');
         this.isConnected.set(false);
 
         if (this.client === client) {
@@ -206,6 +260,9 @@ export class MqttService {
   }
 
   desconectar() {
+
+    this.pararWatchdog();
+    this.deviceStatus.set('offline');
 
     if (this.client) {
       this.client.end(true);
