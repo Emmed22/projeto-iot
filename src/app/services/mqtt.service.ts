@@ -28,7 +28,8 @@ export class MqttService {
   port = 8884;
   username = 'aula';
   password = '';
-  topicPrefix = 'iotaula/mariana-duarte-e-luna-alves/';
+  // Prefixo usado pelo ESP32 do professor (confirmado pelo console)
+  topicPrefix = 'iotaula/seu-nome/';
 
   // Detecção de ESP32 offline (watchdog)
   // Se ficar esse tempo sem receber nada do ESP32, ele é marcado como offline.
@@ -69,6 +70,12 @@ export class MqttService {
 
     if (this.client) {
       return;
+    }
+
+    // Normaliza o prefixo: tira espaços e garante a barra no final
+    this.topicPrefix = this.topicPrefix.trim();
+    if (this.topicPrefix && !this.topicPrefix.endsWith('/')) {
+      this.topicPrefix += '/';
     }
 
     if (
@@ -131,6 +138,8 @@ export class MqttService {
           `${this.topicPrefix}status`
         ];
 
+        console.log('[MQTT] Assinando:', topics);
+
         client.subscribe(topics, (error) => {
 
           if (error) {
@@ -146,15 +155,22 @@ export class MqttService {
       });
 
       // Recebimento de mensagens
-      client.on('message', (topic, payload) => {
+      client.on('message', (topic, payload, packet) => {
 
         const message = payload.toString();
-        console.log('[mqtt] Mensagem recebida:', topic, message);
+        console.log(
+          '[mqtt] Mensagem recebida:',
+          topic,
+          message,
+          packet.retain ? '(retida)' : '(nova)'
+        );
 
         if (topic === `${this.topicPrefix}led/state`) {
           this.ledState.set(message);
+          if (!packet.retain) {
           this.registrarSinalEsp32();
         }
+       }
 
         if (topic === `${this.topicPrefix}status`) {
           if (message === 'offline') {
@@ -175,9 +191,14 @@ export class MqttService {
             const data = JSON.parse(message);
 
             this.temperature.set(data.t);
-            this.humidity.set(data.h);
+            // O ESP32 do professor às vezes manda só a temperatura, sem 'h'
+            if (typeof data.h === 'number') {
+              this.humidity.set(data.h);
+            }
             this.lastReading.set(new Date());
+            if (!packet.retain) {
             this.registrarSinalEsp32();
+            }
 
           } catch (error) {
 
